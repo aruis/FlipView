@@ -8,85 +8,76 @@
 import SwiftUI
 
 struct FlipView: View {
+    @State var t = 0
     
-    @State var aniTop = true
-    @State var aniBottom = true
+    @State private var aniTop = true
+    @State private var aniBottom = true
+    @State private var aniShadow = true
     
-    @State var oldText:String = "0"
-    @State var newText:String = "0"
+    @State private var oldText:String = "0"
     
-    @State var i = 0
+    @Binding var text:String
     
-    @State var halfSize = CGFloat(100)
+    
+    @State var halfSize = CGFloat(60)
     @State var flipCardColor:Color = .blue
     
     var aniTime = 0.2
+    var cornerRadius:CGFloat = 0
     
     var body: some View {
-        VStack{
+        
+        
+        ZStack{
             
+            VStack(spacing:0){
                 ZStack{
+                    HalfView(text: $text,type: .top,size:halfSize,bgColor: flipCardColor , cornerRadius :cornerRadius)
+                    HalfView(text:$oldText,type: .top,size:halfSize,bgColor: flipCardColor,cornerRadius:cornerRadius)
+                        .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.35)
                     
-                    VStack(spacing:0){
-                        ZStack{
-                            HalfView(text: $newText,type: .top,size:halfSize,bgColor: flipCardColor)                            
-                            HalfView(text:$oldText,type: .top,size:halfSize,bgColor: flipCardColor)
-                                .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.35)
-
-                        }
-                        
-                        ZStack{
-                            HalfView(text:$oldText,type: .bottom,size:halfSize,bgColor: flipCardColor)
-                                .overlay{
-                                    Color.black
-                                        .opacity(aniBottom ? 0.85 : 0)
-                                        .clipShape(Shadow(depth: 10))
-                                        .offset( x: aniBottom ? -10 : 0 ,y: aniBottom ? 0 : -10)//
-                                        .clipped()
-                                }
-                            
-                            HalfView(text:$newText,type: .bottom,size:halfSize,bgColor: flipCardColor)
-                                .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.35)
-                            
-                        }
-                        
-                        
-                    }
-                    
-                    
-                    Color.black.frame(height:3)
                 }
-
-            
-            
-            
-            Button("test"){
-                i += 1
-                setText(value: String(i))
-            }
-            
-            Text("\(String(aniTop))")
-            Text("\(String(aniBottom))")
-            Text("\(String(oldText))")
-            Text("\(String(newText))")
+                
+                ZStack{
+                    HalfView(text:$oldText,type: .bottom,size:halfSize,bgColor: flipCardColor,cornerRadius:cornerRadius)
+                        .overlay{
+                            Color.black
+                                .opacity(aniShadow ? 0.85 : 0)
+                                .clipShape(Shadow(depth: 10))
+                                .offset( x: aniShadow ? -10 : 0 ,y: aniShadow ? 0 : -10)
+                                .clipped()
+                                .cornerRadius(cornerRadius,corners:  .bottomRight)
+                                .cornerRadius(cornerRadius,corners:  .bottomLeft)
+                        }
+                    
+                    HalfView(text:$text,type: .bottom,size:halfSize,bgColor: flipCardColor,cornerRadius:cornerRadius)
+                        .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.35)
+                    
+                }
+            }.onChange(of: text, perform: { _ in
+                trigger()
+            })
             
         }
         
-        
     }
     
-    func setText(value : String){
-        oldText = newText
+    func trigger(){
+        oldText = text
         
         
         aniTop =  false
         aniBottom = false
+        aniShadow = false
         
         withAnimation(.easeIn(duration: aniTime)){
             aniTop.toggle()
-            newText = value
-            
         }
+        
+        withAnimation(.easeIn(duration: aniTime).delay(aniTime*0.7)){
+            aniShadow.toggle()
+        }
+        
         withAnimation(.easeOut(duration: aniTime).delay(aniTime)){
             aniBottom.toggle()
         }
@@ -97,7 +88,8 @@ struct FlipView: View {
 
 struct FlipView_Previews: PreviewProvider {
     static var previews: some View {
-        FlipView(halfSize:CGFloat(200))
+        FlipView(text:.constant("2") , halfSize:CGFloat(200))
+            .cornerRadius(0)
     }
 }
 
@@ -116,5 +108,13 @@ struct Shadow: Shape {
             
             p.closeSubpath()
         }
+    }
+}
+
+extension FlipView {
+    
+    mutating func cornerRadius(_ radius: CGFloat) -> some View {
+        self.cornerRadius = radius
+        return self
     }
 }
