@@ -23,34 +23,33 @@ struct FlipView: View {
     @State var flipCardColor:Color = .blue
     
     var aniTime = 0.2
-    var cornerRadius:CGFloat = 0
+    
+    var gap:CGFloat = 4
     
     var body: some View {
         
         
         ZStack{
             
-            VStack(spacing:0){
+            VStack(spacing:gap){
                 ZStack{
-                    HalfView(text: $text,type: .top,size:halfSize,bgColor: flipCardColor , cornerRadius :cornerRadius)
-                    HalfView(text:$oldText,type: .top,size:halfSize,bgColor: flipCardColor,cornerRadius:cornerRadius)
+                    HalfView(text: $text,type: .top,size:halfSize,bgColor: flipCardColor)
+                    HalfView(text:$oldText,type: .top,size:halfSize,bgColor: flipCardColor)
                         .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.35)
                     
                 }
                 
                 ZStack{
-                    HalfView(text:$oldText,type: .bottom,size:halfSize,bgColor: flipCardColor,cornerRadius:cornerRadius)
+                    HalfView(text:$oldText,type: .bottom,size:halfSize,bgColor: flipCardColor)
                         .overlay{
                             Color.black
                                 .opacity(aniShadow ? 0.85 : 0)
                                 .clipShape(Shadow(depth: 10))
                                 .offset( x: aniShadow ? -10 : 0 ,y: aniShadow ? 0 : -10)
-                                .clipped()
-                                .cornerRadius(cornerRadius,corners:  .bottomRight)
-                                .cornerRadius(cornerRadius,corners:  .bottomLeft)
+                                .clipped()                              
                         }
                     
-                    HalfView(text:$text,type: .bottom,size:halfSize,bgColor: flipCardColor,cornerRadius:cornerRadius)
+                    HalfView(text:$text,type: .bottom,size:halfSize,bgColor: flipCardColor)
                         .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.35)
                     
                 }
@@ -88,8 +87,8 @@ struct FlipView: View {
 
 struct FlipView_Previews: PreviewProvider {
     static var previews: some View {
-        FlipView(text:.constant("2") , halfSize:CGFloat(200))
-            .cornerRadius(0)
+        FlipView(text:.constant("2") , halfSize:CGFloat(200),gap: 4)
+            
     }
 }
 
@@ -108,13 +107,5 @@ struct Shadow: Shape {
             
             p.closeSubpath()
         }
-    }
-}
-
-extension FlipView {
-    
-    mutating func cornerRadius(_ radius: CGFloat) -> some View {
-        self.cornerRadius = radius
-        return self
     }
 }
