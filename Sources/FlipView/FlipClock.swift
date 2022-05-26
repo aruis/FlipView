@@ -1,7 +1,7 @@
 //
 //  SwiftUIView.swift
 //  
-//
+//  一个展示Flip效果的时钟，并不建议你直接使用，而是用来参考里面的代码，使其与您的项目融合
 //  Created by Liu Rui on 2022/5/25.
 //
 

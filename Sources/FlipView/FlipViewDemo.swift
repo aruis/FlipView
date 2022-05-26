@@ -1,7 +1,7 @@
 //
 //  SwiftUIView.swift
 //  
-//
+//  用来展示一个FlipVIew是如何工作的
 //  Created by Liu Rui on 2022/5/26.
 //
 

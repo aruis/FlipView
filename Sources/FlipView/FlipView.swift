@@ -1,7 +1,7 @@
 //
 //  SwiftUIView.swift
 //
-//
+//  一个数字即为一个Flip，但其实它由上下两部分组成，上下各使用两个 HalfView。
 //  Created by Liu Rui on 2022/5/25.
 //
 

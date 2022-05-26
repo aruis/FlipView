@@ -1,7 +1,7 @@
 //
 //  SwiftUIView.swift
 //  
-//
+//  Flip中的半个，构成一个完整Flip，需要上下各一个 HalfView 进行拼接，但是如果要展示动画，则需要4个HalfView进行配合。
 //  Created by Liu Rui on 2022/5/25.
 //
 
