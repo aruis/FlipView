@@ -28,7 +28,7 @@ struct FlipView: View {
     var body: some View {
         
         
-        ZStack{
+        
             
             VStack(spacing:gap){
                 ZStack{
@@ -64,7 +64,7 @@ struct FlipView: View {
                 trigger()
             })
             
-        }
+        
         
     }
     
