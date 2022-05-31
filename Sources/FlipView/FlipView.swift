@@ -35,6 +35,10 @@ struct FlipView: View {
                 ZStack{
                     HalfView(text: $text,type: .top,size:halfSize,bgColor: flipCardColor)
                     HalfView(text:$oldText,type: .top,size:halfSize,bgColor: flipCardColor)
+                        .overlay{
+                            Color.black
+                                .opacity(aniTop ? 0.35 : 0)
+                        }
                         .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.35)
                     
                 }
@@ -43,13 +47,17 @@ struct FlipView: View {
                     HalfView(text:$oldText,type: .bottom,size:halfSize,bgColor: flipCardColor)
                         .overlay{
                             Color.black
-                                .opacity(aniShadow ? 0.85 : 0)
+                                .opacity(aniShadow ? 0.35 : 0)
                                 .clipShape(Shadow(depth: 10))
-                                .offset( x: aniShadow ? -10 : 0 ,y: aniShadow ? 0 : -10)
-                                .clipped()                              
+                                .offset( x: aniShadow ? -10 : 0 ,y: aniShadow ? 0 : -30)
+                                .clipped()
                         }
                     
                     HalfView(text:$text,type: .bottom,size:halfSize,bgColor: flipCardColor)
+                        .overlay{
+                            Color.black
+                                .opacity(aniBottom ? 0 : 0.15)
+                        }
                         .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.35)
                     
                 }
@@ -73,7 +81,7 @@ struct FlipView: View {
             aniTop.toggle()
         }
         
-        withAnimation(.easeIn(duration: aniTime).delay(aniTime*0.7)){
+        withAnimation(.easeInOut(duration: aniTime).delay(aniTime*0.6)){
             aniShadow.toggle()
         }
         
@@ -87,7 +95,15 @@ struct FlipView: View {
 
 struct FlipView_Previews: PreviewProvider {
     static var previews: some View {
-        FlipView(text:.constant("2") , halfSize:CGFloat(200),gap: 4)
+        TimelineView(.periodic(from: .now, by: 3)) { context in
+            let arr = Array( context.date.format("HHmmss")).map{String($0)}
+            
+            FlipView(text:.constant(arr[5]) , halfSize:CGFloat(200), aniTime: 1, gap: 4)
+            
+        }
+
+        
+        
             
     }
 }
