@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FlipView: View {
-    @State var t = 0
     
     @State private var aniTop = true
     @State private var aniBottom = true

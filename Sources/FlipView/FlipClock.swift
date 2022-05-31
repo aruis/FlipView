@@ -19,8 +19,8 @@ struct FlipClock: View {
                     ZStack{
                         HStack{
                             ForEach(0...5, id: \.self) {i in
-                                FlipView(text : .constant( arr[i]),gap: 2)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                FlipView(text : .constant( arr[i]), flipCardColor:.gray, gap: 2)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                             }                            
                         }
                         
