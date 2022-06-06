@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct FlipClock: View {
+struct FlipClockDemo: View {
     
     public var body: some View {
         
@@ -39,7 +39,7 @@ public struct FlipClock: View {
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        FlipClock()
+        FlipClockDemo()
     }
 }
 

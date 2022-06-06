@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct FlipView: View {
     
+    
     @State private var aniTop = true
     @State private var aniBottom = true
     @State private var aniShadow = true
@@ -18,13 +19,23 @@ public struct FlipView: View {
     @Binding var text:String
     
     
-    @State var halfSize = CGFloat(60)
+    @State var halfSize:CGFloat
     @State var flipCardColor:Color = .blue
     
-    var aniTime = 0.2
+    var aniTime:CGFloat
     
-    var gap:CGFloat = 4
+    var gap:CGFloat
     
+    
+    public init(text:Binding<String>,halfSize:CGFloat = CGFloat(60),flipCardColor:Color = .blue, aniTime:CGFloat = 0.2,gap:CGFloat = 4) {
+        self._text = text
+        self.halfSize = halfSize
+        self.flipCardColor = flipCardColor
+        self.aniTime = aniTime
+        self.gap = gap
+    }
+    
+        
     public var body: some View {
         
         
