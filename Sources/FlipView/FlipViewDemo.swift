@@ -9,17 +9,15 @@ import SwiftUI
 
 struct FlipViewDemo: View {
     
-    @State var i = 0
+    
     
     var body: some View {
         VStack{
-            FlipView(text: .constant(String(i)),halfSize: 100)
-                .cornerRadius(10)
-            Text("\(i)")
-            Button("test"){
-                i += 1
-            }
+            Text("hello")
+                .foregroundColor(.textColor)
+            Color.separator.frame(width:100, height:2)
         }
+        .background(.background)
     }
 }
 
@@ -27,4 +25,10 @@ struct FlipViewDemo_Previews: PreviewProvider {
     static var previews: some View {
         FlipViewDemo()
     }
+}
+
+extension Color {
+    static  var background = Color("background")
+    static  var separator = Color("separator")
+    static  var textColor = Color("text_color")
 }

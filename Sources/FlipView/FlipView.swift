@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FlipView: View {
+public struct FlipView: View {
     
     @State private var aniTop = true
     @State private var aniBottom = true
@@ -25,7 +25,7 @@ struct FlipView: View {
     
     var gap:CGFloat = 4
     
-    var body: some View {
+    public var body: some View {
         
         
         

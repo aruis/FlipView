@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct FlipClock: View {
+public struct FlipClock: View {
     
-    var body: some View {
+    public var body: some View {
         
         VStack{
             
