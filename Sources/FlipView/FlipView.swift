@@ -19,7 +19,7 @@ public struct FlipView: View {
     @Binding var text:String
     
     
-    @State var halfSize:CGFloat
+    @Binding var halfSize:CGFloat
     @State var flipCardColor:Color = .blue
     
     var aniTime:CGFloat
@@ -27,9 +27,9 @@ public struct FlipView: View {
     var gap:CGFloat
     
     
-    public init(text:Binding<String>,halfSize:CGFloat = CGFloat(60),flipCardColor:Color = .blue, aniTime:CGFloat = 0.2,gap:CGFloat = 4) {
+    public init(text:Binding<String>,halfSize: Binding<CGFloat> = .constant(CGFloat(60)),flipCardColor:Color = .blue, aniTime:CGFloat = 0.2,gap:CGFloat = 4) {
         self._text = text
-        self.halfSize = halfSize
+        self._halfSize = halfSize
         self.flipCardColor = flipCardColor
         self.aniTime = aniTime
         self.gap = gap
@@ -108,7 +108,7 @@ struct FlipView_Previews: PreviewProvider {
         TimelineView(.periodic(from: .now, by: 3)) { context in
             let arr = Array( context.date.format("HHmmss")).map{String($0)}
             
-            FlipView(text:.constant(arr[5]) , halfSize:CGFloat(200), aniTime: 1, gap: 4)
+            FlipView(text:.constant(arr[5]) , halfSize: .constant( CGFloat(200)), aniTime: 1, gap: 4)
             
         }
 
