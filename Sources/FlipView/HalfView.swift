@@ -21,7 +21,7 @@ struct HalfView: View {
         GeometryReader{ geometry in
             let size = geometry.size
             Text(text)
-                .font(.system(size:size.width * 1.5).monospacedDigit())
+                .font(.system(size:size.width * 1.35).monospacedDigit())
                 .position(x: size.width/2, y: type == .top ? size.height : 0)
         }
         
