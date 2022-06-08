@@ -10,17 +10,19 @@ import SwiftUI
 struct FlipViewDemo: View {
     
     @State var i = 0
-    @State var size:CGFloat = 100.0
+    
     
     var body: some View {
         VStack{
-            FlipView(text: .constant(String(i)),halfSize: $size)
+            FlipView( .constant(String(i)) ,flipColor: .constant(.brown))
+                .frame(width: 100, height: 200)
+                .foregroundColor(.white)
                 .cornerRadius(10)
+            
             Text("\(i)")
             Button("test"){
                 i += 1
                 
-                size -= 10
             }
         }
         .background(.background)

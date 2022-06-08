@@ -11,9 +11,6 @@ struct HalfView: View {
     @Binding var text:String
     
     var type:HalfType
-    var size:CGFloat
-    var bgColor:Color = .black
-    
     
     enum HalfType{
         case top
@@ -21,18 +18,22 @@ struct HalfView: View {
     }
     
     var body: some View {
-
-        VStack{
+        GeometryReader{ geometry in
+            let size = geometry.size
             Text(text)
-                .font(.system(size: size*0.88).monospacedDigit())
-                .foregroundColor(.white)
-                
+                .font(.system(size:size.width * 1.2).monospacedDigit())
+                .position(x: size.width/2, y: type == .top ? size.height : 0)
         }
-        .padding(type == .top ? .bottom : .top,-size/2)
-        .frame(width: size * 0.6,height: size/2)
+        
         .clipped()
-        .background(bgColor)
-//        .clipShape(RoundedRectangle(cornerRadius: 10,style: .continuous))
+//        .background(.brown)
+        //            .padding(type == .top ? .bottom : .top,-size/2)
+        //            .frame(width: size * 0.6,height: size/2)
+        //            .clipped()
+        //            .background(bgColor)
+        
+        
+        //        .clipShape(RoundedRectangle(cornerRadius: 10,style: .continuous))
     }
     
     
@@ -40,7 +41,17 @@ struct HalfView: View {
 
 struct HalfView_Previews: PreviewProvider {
     static var previews: some View {
-        HalfView( text: .constant("0") ,type: .top,size:100,bgColor: .black)
-        HalfView( text: .constant("0") ,type: .bottom,size:100,bgColor: .black)
+        VStack{
+            HalfView( text: .constant("5") ,type: .top)
+                .frame(width: 100, height: 100)
+                .background(.black)
+                .foregroundColor(.white)
+            HalfView( text: .constant("5") ,type: .bottom)
+                .frame(width: 100, height: 100)
+                .background(.black)
+                .foregroundColor(.white)
+        }
+        
+
     }
 }

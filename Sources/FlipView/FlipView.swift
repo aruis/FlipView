@@ -17,20 +17,17 @@ public struct FlipView: View {
     @State private var oldText:String = "0"
     
     @Binding var text:String
+    @Binding var flipColor:Color
     
-    
-    @Binding var halfSize:CGFloat
-    @State var flipCardColor:Color = .blue
     
     var aniTime:CGFloat
     
     var gap:CGFloat
+        
     
-    
-    public init(text:Binding<String>,halfSize: Binding<CGFloat> = .constant(CGFloat(60)),flipCardColor:Color = .blue, aniTime:CGFloat = 0.2,gap:CGFloat = 4) {
+    public init(_ text:Binding<String>,flipColor:Binding<Color>,  aniTime:CGFloat = 0.2,gap:CGFloat = 4) {
         self._text = text
-        self._halfSize = halfSize
-        self.flipCardColor = flipCardColor
+        self._flipColor = flipColor
         self.aniTime = aniTime
         self.gap = gap
     }
@@ -39,12 +36,18 @@ public struct FlipView: View {
     public var body: some View {
         
         
-        
+        GeometryReader{geometry in
+            let size = geometry.size
             
             VStack(spacing:gap){
                 ZStack{
-                    HalfView(text: $text,type: .top,size:halfSize,bgColor: flipCardColor)
-                    HalfView(text:$oldText,type: .top,size:halfSize,bgColor: flipCardColor)
+                    HalfView(text: $text,type: .top)
+                        .frame(width: size.width, height: size.height/2)
+                        .background(flipColor)
+                        
+                    HalfView(text:$oldText,type: .top)
+                        .frame(width: size.width, height: size.height/2)
+                        .background(flipColor)
                         .overlay{
                             Color.black
                                 .opacity(aniTop ? 0.35 : 0)
@@ -54,7 +57,10 @@ public struct FlipView: View {
                 }
                 
                 ZStack{
-                    HalfView(text:$oldText,type: .bottom,size:halfSize,bgColor: flipCardColor)
+                    HalfView(text:$oldText,type: .bottom)
+                        
+                        .frame(width: size.width, height: size.height/2)
+                        .background(flipColor)
                         .overlay{
                             Color.black
                                 .opacity(aniShadow ? 0.35 : 0)
@@ -63,7 +69,9 @@ public struct FlipView: View {
                                 .clipped()
                         }
                     
-                    HalfView(text:$text,type: .bottom,size:halfSize,bgColor: flipCardColor)
+                    HalfView(text:$text,type: .bottom)
+                        .frame(width: size.width, height: size.height/2)
+                        .background(flipColor)
                         .overlay{
                             Color.black
                                 .opacity(aniBottom ? 0 : 0.15)
@@ -74,6 +82,11 @@ public struct FlipView: View {
             }.onChange(of: text, perform: { _ in
                 trigger()
             })
+            
+        }
+        
+            
+           
             
         
         
@@ -106,9 +119,12 @@ public struct FlipView: View {
 struct FlipView_Previews: PreviewProvider {
     static var previews: some View {
         TimelineView(.periodic(from: .now, by: 3)) { context in
-            let arr = Array( context.date.format("HHmmss")).map{String($0)}
+//            let arr = Array( context.date.format("HHmmss")).map{String($0)}
             
-            FlipView(text:.constant(arr[5]) , halfSize: .constant( CGFloat(200)), aniTime: 1, gap: 4)
+            FlipView(.constant("2"),flipColor: .constant(.blue),  aniTime: 1, gap: 4)
+                .frame(width: 100, height: 200)
+                .foregroundColor(.white)
+                .background(.black)
             
         }
 
@@ -135,3 +151,5 @@ struct Shadow: Shape {
         }
     }
 }
+
+

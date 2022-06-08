@@ -11,7 +11,10 @@ struct FlipClockDemo: View {
     
     public var body: some View {
         
-        VStack{
+        GeometryReader{ geometry in
+            let size = geometry.size
+            let width = size.width / 8
+            let height = width*2
             
                 TimelineView(.periodic(from: .now, by: 1)) { context in
                     let arr = Array( context.date.format("HHmmss")).map{String($0)}
@@ -19,7 +22,9 @@ struct FlipClockDemo: View {
                     ZStack{
                         HStack{
                             ForEach(0...5, id: \.self) {i in
-                                FlipView(text : .constant( arr[i]), flipCardColor:.gray, gap: 3)
+                                FlipView(.constant( arr[i]), flipColor: .constant(.black), gap: 3)
+                                    .frame(width: width, height: height)
+                                    .foregroundColor(.white)
                                     .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                             }                            
                         }
@@ -28,10 +33,10 @@ struct FlipClockDemo: View {
                     .padding(40)
                     
                 }
+                .position(x: size.width/2, y: size.height/2)
                 
             
         }
-        .background(.black)
     }
 }
 
