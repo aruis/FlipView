@@ -1,6 +1,10 @@
 # FlipView
 
-一个简单的翻页时钟效果：
+用SwiftUI实现的，一个简单的翻页时钟效果。
+
+## 使用
+
+File > Swift Packages > Add Package Dependency: https://github.com/aruis/FlipView.git
 
 ![CleanShot-2022-05-31-11 02 57](https://user-images.githubusercontent.com/1785495/171084575-e2967ae2-d434-4359-abb1-ce92f044bad4.gif)
 
