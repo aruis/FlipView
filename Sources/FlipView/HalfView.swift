@@ -24,7 +24,6 @@ struct HalfView: View {
                 .font(.system(size:size.width * 1.35).monospacedDigit())
                 .position(x: size.width/2, y: type == .top ? size.height : 0)
         }
-        
         .clipped()
 //        .background(.brown)
         //            .padding(type == .top ? .bottom : .top,-size/2)
@@ -41,15 +40,19 @@ struct HalfView: View {
 
 struct HalfView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack{
+        VStack(spacing:2){
             HalfView( text: .constant("5") ,type: .top)
                 .frame(width: 100, height: 100)
                 .background(.black)
                 .foregroundColor(.white)
+                .rotation3DEffect(.degrees(-65),axis:(1,0,0),anchor: .bottom,perspective: 0.15)
+            
             HalfView( text: .constant("5") ,type: .bottom)
                 .frame(width: 100, height: 100)
                 .background(.black)
                 .foregroundColor(.white)
+            
+            
         }
         
 

@@ -25,7 +25,7 @@ public struct FlipView: View {
     var gap:CGFloat
         
     
-    public init(_ text:Binding<String>,flipColor:Binding<Color>,  aniTime:CGFloat = 0.2,gap:CGFloat = 4) {
+    public init(_ text:Binding<String>,flipColor:Binding<Color>,  aniTime:CGFloat = 0.2,gap:CGFloat = 2) {
         self._text = text
         self._flipColor = flipColor
         self.aniTime = aniTime
@@ -52,7 +52,7 @@ public struct FlipView: View {
                             Color.black
                                 .opacity(aniTop ? 0.35 : 0)
                         }
-                        .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.35)
+                        .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.15)
                     
                 }
                 
@@ -76,12 +76,12 @@ public struct FlipView: View {
                             Color.black
                                 .opacity(aniBottom ? 0 : 0.15)
                         }
-                        .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.35)
+                        .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.15)
                     
                 }
             }.onChange(of: text, perform: { _ in
                 trigger()
-            })
+            })            
             
         }
         
@@ -108,7 +108,7 @@ public struct FlipView: View {
             aniShadow.toggle()
         }
         
-        withAnimation(.easeOut(duration: aniTime).delay(aniTime)){
+        withAnimation(.spring(response: aniTime, dampingFraction: 0.5).delay(aniTime)){
             aniBottom.toggle()
         }
         
