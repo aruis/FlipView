@@ -108,8 +108,8 @@ public struct FlipView: View {
             aniShadow.toggle()
         }
         
-        withAnimation(.spring(response: aniTime*1.5, dampingFraction: 0.5).delay(aniTime)){
-            aniBottom.toggle()
+        withAnimation(.linear(duration: aniTime).delay(aniTime)){
+            aniBottom = true
         }
         
         

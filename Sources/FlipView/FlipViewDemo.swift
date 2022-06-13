@@ -14,7 +14,7 @@ struct FlipViewDemo: View {
     
     var body: some View {
         VStack{
-            FlipView( .constant(String(i)) ,flipColor: .constant(.brown))
+            FlipView( .constant(String(i)) ,flipColor: .constant(.brown),aniTime: 2)
                 .frame(width: 100, height: 200)
                 .foregroundColor(.white)
                 .cornerRadius(10)
