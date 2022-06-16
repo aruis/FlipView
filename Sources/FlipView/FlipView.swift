@@ -52,7 +52,7 @@ public struct FlipView: View {
                             Color.black
                                 .opacity(aniTop ? 0.35 : 0)
                         }
-                        .rotation3DEffect(.degrees(aniTop ? -90 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.15)
+                        .rotation3DEffect(.degrees(aniTop ? -89.9 : 0), axis: (1,0,0), anchor: .bottom, perspective: 0.15)
                     
                 }
                 
@@ -76,7 +76,7 @@ public struct FlipView: View {
                             Color.black
                                 .opacity(aniBottom ? 0 : 0.15)
                         }
-                        .rotation3DEffect(.degrees(aniBottom ? 0 : 90), axis: (1,0,0), anchor: .top, perspective: 0.15)
+                        .rotation3DEffect(.degrees(aniBottom ? 0 : 89.9), axis: (1,0,0), anchor: .top, perspective: 0.15)
                     
                 }
             }.onChange(of: text, perform: { _ in
